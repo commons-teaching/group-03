@@ -1,17 +1,16 @@
 _commit: 0.2.6
 _src_path: gh:mapp-metabolomics-unit/mapp-repo-copier-template
-author: MAPP Metabolomics Unit
-common_filename_pattern: '*mapp_01_*.mzML'
+common_filename_pattern: '*20260424_CVOL_Group_03*.mzML'
 email: pierre-marie.allard@unifr.ch
 gap_filling: true
-git_repo_path: /Users/voletco/git_repos
+git_repo_path: /home/voletco/git_repos/commons-teaching
 github_username: commons-teaching
 gnps_job_id: ''
 ionization_mode: positive
 mapp_batch: mapp_batch_00249
 mapp_batch_description: Untargeted metabolomics, tp26 SBL. 200004, group-03
 mapp_project: mapp_project_00050
-noise_level: 200000.0
+noise_level: 500000.0
 repository_name: group-03
 stats_job_id: ''
 target_variable: source_taxon

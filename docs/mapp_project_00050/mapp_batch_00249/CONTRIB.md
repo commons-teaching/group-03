@@ -4,7 +4,7 @@ For this we use https://github.com/mapp-metabolomics-unit/msfiles-selector
 Once you have cloned this repo you can run the following command to move the files (from the src dir)
 
 ```bash
-sg commons-users -c './copy_files.sh -i /mnt/bigdata/mapp/public/QE_HFX_unifr/converted -o /msdata/mapp_project_00050/mapp_batch_00249 -p "*mapp_01_*.mzML"'
+sg commons-users -c './copy_files.sh -i /mnt/bigdata/mapp/public/QE_HFX_unifr/converted -o /msdata/mapp_project_00050/mapp_batch_00249 -p "*20260424_CVOL_Group_03*.mzML"'
 ```
 
 ### Transfer the metadata to the msdata folder
@@ -173,9 +173,9 @@ options:
   
 paths:
   gnps_job_id:  # The GNPS job id you want to treat
-  input_folder: /Users/voletco/git_repos/group-03/docs/mapp_project_00050/mapp_batch_00249/results/met_annot_enhancer # The path were you want your GNPS job folder to be placed
+  input_folder: /home/voletco/git_repos/commons-teaching/group-03/docs/mapp_project_00050/mapp_batch_00249/results/met_annot_enhancer # The path were you want your GNPS job folder to be placed
   project_name: mapp_batch_00249 #ISDB_annot_LP_plantfungi_set # The name you want to give to your project, output resulst in data_out/project_name
-  output_folder: /Users/voletco/git_repos/group-03/docs/mapp_project_00050/mapp_batch_00249/results/met_annot_enhancer # the path for your output to be stored in
+  output_folder: /home/voletco/git_repos/commons-teaching/group-03/docs/mapp_project_00050/mapp_batch_00249/results/met_annot_enhancer # the path for your output to be stored in
   metadata_path: /Users/pma/01_large_files/lotus/230106_frozen_metadata.csv # Path to the metadata of the spectral file /210715_inhouse_metadata.csv /211220_frozen_metadata.csv You can use multiple ones. Just list them as [a.csv, b.csv, c.csv]
   db_file_path: /Users/pma/01_large_files/mgf/isdb_pos_cleaned.pkl  # Path to your spectral library file. You can use multiple ones. Just list them as [a.mgf, b.mgf, c.mgf]
   adducts_pos_path: data_loc/230106_frozen_metadata/230106_frozen_metadata_adducts_pos.tsv.gz # Path to the adducts file in pos mode
@@ -228,7 +228,7 @@ filtering_params:
 conda activate met_annot_enhancer
 ```
 ```bash
-python /Users/voletco/git_repos/mandelbrot_project/met_annot_enhancer/src/dev/nb.py
+python /home/voletco/git_repos/commons-teaching/mandelbrot_project/met_annot_enhancer/src/dev/nb.py
 ```
 
 ### Remove symlinks
@@ -246,8 +246,8 @@ find ./results/met_annot_enhancer/ -type l -exec rm {} +
 
 ```yaml
 paths:
-  docs: '/Users/voletco/git_repos/group-03/docs'
-  output: '/Users/voletco/git_repos/group-03/docs/mapp_project_00050/mapp_batch_00249/results/stats' # Not mandatory, default is in the stats subdirectory
+  docs: '/home/voletco/git_repos/commons-teaching/group-03/docs'
+  output: '/home/voletco/git_repos/commons-teaching/group-03/docs/mapp_project_00050/mapp_batch_00249/results/stats' # Not mandatory, default is in the stats subdirectory
 
 operating_system:
   system: unix # 
@@ -457,7 +457,7 @@ feature_to_filter :
 Launch the scripts
 
 ``````bash
-Rscript /Users/voletco/git_repos/biostat_toolbox/src/biostat_toolbox.r
+Rscript /home/voletco/git_repos/commons-teaching/biostat_toolbox/src/biostat_toolbox.r
 ```
 
 
