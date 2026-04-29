@@ -21,6 +21,7 @@ filename	sample_id	sample_type	ATTRIBUTE_Group	ATTRIBUTE_Group_detailed	ATTRIBUT
 20260424_CVOL_Group_03_wt_1A_20m.mzML	wt_1A_20m	sample	wt	wt_1	wt_1A	20m	A	wt_20m	Nicotiana benthamiana
 20260424_CVOL_Group_03_wt_1B_0m.mzML	wt_1B_0m	sample	wt	wt_1	wt_1B	0m	B	wt_0m	Nicotiana benthamiana
 20260424_CVOL_Group_03_wt_1B_20m.mzML	wt_1B_20m	sample	wt	wt_1	wt_1B	20m	B	wt_20m	Nicotiana benthamiana
+20260424_CVOL_Group_03_wt_2A_0m.mzML	wt_2A_0m	sample	wt	wt_2	wt_2A	0m	A	wt_0m	Nicotiana benthamiana
 20260424_CVOL_Group_03_wt_2A_20m.mzML	wt_2A_20m	sample	wt	wt_2	wt_2A	20m	A	wt_20m	Nicotiana benthamiana
 20260424_CVOL_Group_03_wt_2B_0m.mzML	wt_2B_0m	sample	wt	wt_2	wt_2B	0m	B	wt_0m	Nicotiana benthamiana
 20260424_CVOL_Group_03_wt_2B_20m.mzML	wt_2B_20m	sample	wt	wt_2	wt_2B	20m	B	wt_20m	Nicotiana benthamiana
