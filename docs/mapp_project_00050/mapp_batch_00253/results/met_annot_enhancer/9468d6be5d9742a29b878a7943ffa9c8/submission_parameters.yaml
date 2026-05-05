@@ -1,0 +1,27 @@
+create_time: 2026-05-05 02:36:11 PDT-0700
+description: mapp_batch_00253
+featurefindingtool: MZMINE
+fragment_tolerance: '0.5'
+input_libraries: LIBRARYLOCATION/LC/LIBRARY
+input_raw_spectra: ''
+input_supplemental_edges: ''
+inputfeatures: USERUPLOAD/naldruk/mapp/mapp_project_0050/mapp_batch_00253/mapp_batch_00253_quant.csv
+inputspectra: USERUPLOAD/naldruk/mapp/mapp_project_0050/mapp_batch_00253/mapp_batch_00253.mgf
+library_analog_max_shift: '1999'
+library_analog_search: '0'
+library_min_cosine: '0.7'
+library_min_matched_peaks: '6'
+library_topk: '1'
+metadata_filename: USERUPLOAD/naldruk/mapp/mapp_project_0050/mapp_batch_00253/mapp_batch_00253_metadata.tsv
+networking_max_shift: '1999'
+networking_min_cosine: '0.7'
+networking_min_matched_peaks: '6'
+normalization: None
+pm_tolerance: '2.0'
+precursor_filter: '1'
+task: 9468d6be5d9742a29b878a7943ffa9c8
+topology_maxcomponent: '100'
+topology_topk: '10'
+window_filter: '1'
+workflow_version: SERVER:2025.12.10;WORKFLOW:2026.03.19
+workflowname: feature_based_molecular_networking_workflow
