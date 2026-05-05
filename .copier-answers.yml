@@ -3,12 +3,12 @@ _src_path: gh:mapp-metabolomics-unit/mapp-repo-copier-template
 common_filename_pattern: '*20260428_CVOL_Group_03*.mzML'
 email: pierre-marie.allard@unifr.ch
 gap_filling: true
-git_repo_path: /home/voletco/git_repos/commons-teaching
+git_repo_path: /Users/voletco/git_repos/commons-teaching
 github_username: commons-teaching
-gnps_job_id: ''
+gnps_job_id: 67fadad5b2a346a3880c7069bf91d2fd
 ionization_mode: positive
-mapp_batch: mapp_batch_00253
-mapp_batch_description: Untargeted metabolomics, tp26 SBL. 200004, group-03 - HILIC
+mapp_batch: mapp_batch_00249
+mapp_batch_description: Untargeted metabolomics, tp26 SBL. 200004, group-03 - C18
 mapp_project: mapp_project_00050
 noise_level: 200000.0
 repository_name: group-03
@@ -20,6 +20,6 @@ recorded_author: "MAPP Metabolomics Unit"
 recorder_email: "pierre-marie.allard@unifr.ch"
 recorded_github_username: "commons-teaching"
 recorded_mapp_project: "mapp_project_00050"
-recorded_mapp_batch: "mapp_batch_00253"
+recorded_mapp_batch: "mapp_batch_00249"
 
 

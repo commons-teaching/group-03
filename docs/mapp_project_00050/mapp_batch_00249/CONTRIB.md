@@ -4,14 +4,14 @@ For this we use https://github.com/mapp-metabolomics-unit/msfiles-selector
 Once you have cloned this repo you can run the following command to move the files (from the src dir)
 
 ```bash
-sg commons-users -c './copy_files.sh -i /mnt/bigdata/mapp/public/QE_HFX_unifr/converted -o /msdata/mapp_project_00050/mapp_batch_00253 -p "*20260428_CVOL_Group_03*.mzML"'
+sg commons-users -c './copy_files.sh -i /mnt/bigdata/mapp/public/QE_HFX_unifr/converted -o /msdata/mapp_project_00050/mapp_batch_00249 -p "*20260428_CVOL_Group_03*.mzML"'
 ```
 
 ### Transfer the metadata to the msdata folder
 
 ```bash
-cd ./docs/mapp_project_00050/mapp_batch_00253/
-cp ./metadata/treated/mapp_batch_00253_metadata.tsv /msdata/mapp_project_00050/mapp_batch_00253/mapp_batch_00253_metadata.tsv
+cd ./docs/mapp_project_00050/mapp_batch_00249/
+cp ./metadata/treated/mapp_batch_00249_metadata.tsv /msdata/mapp_project_00050/mapp_batch_00249/mapp_batch_00249_metadata.tsv
 ```
 
 And fill the mzbatch file with the paths to the files
@@ -19,13 +19,13 @@ And fill the mzbatch file with the paths to the files
 Navigate to the Mzmine results folder
 
 ```bash
-cd ./docs/mapp_project_00050/mapp_batch_00253/results/mzmine
+cd ./docs/mapp_project_00050/mapp_batch_00249/results/mzmine
 ```
 
 And proceed to awk black magic to update the mzmine xml file
 
 ```bash
-awk -v dir="/msdata/mapp_project_00050/mapp_batch_00253" '
+awk -v dir="/msdata/mapp_project_00050/mapp_batch_00249" '
 BEGIN {
   cmd = "ls " dir "/*.mzML"
   while (cmd | getline file) {
@@ -47,7 +47,7 @@ BEGIN {
   } else {
     print
   }
-}' mapp_batch_00253.mzbatch_template > mapp_batch_00253.mzbatch
+}' mapp_batch_00249.mzbatch_template > mapp_batch_00249.mzbatch
 ```
 
 ### Running Mzmine
@@ -61,7 +61,7 @@ source /etc/profile
 From the Mzmine results folder
 
 ```bash
-sg commons-users -c '/opt/mzmine/bin/mzmine -batch mapp_batch_00253.mzbatch'
+sg commons-users -c '/opt/mzmine/bin/mzmine -batch mapp_batch_00249.mzbatch'
 ```
 
 
@@ -78,32 +78,32 @@ Run the following command to get the taxonomy for the results:
 1. resolve
 
 ```bash
-taxonomical-utils resolve-taxa --input-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_metadata.tsv --output-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_metadata_resolved.csv --org-column-header source_taxon
+taxonomical-utils resolve-taxa --input-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_metadata.tsv --output-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_metadata_resolved.csv --org-column-header source_taxon
 ```
 
 2. retrieve upper taxa lineage
     
 ```bash
-taxonomical-utils append-taxonomy --input-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_metadata_resolved.csv --output-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/metadata_upper_taxa_lineage.csv
+taxonomical-utils append-taxonomy --input-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_metadata_resolved.csv --output-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/metadata_upper_taxa_lineage.csv
 ```
 
 3. append WD ids 
 
 ```bash
-taxonomical-utils append-wd-id --input-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_metadata_resolved.csv --output-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_wd.csv
+taxonomical-utils append-wd-id --input-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_metadata_resolved.csv --output-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_wd.csv
 ```
 
 ```bash
-taxonomical-utils merge --input-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_metadata.tsv --resolved-taxa-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_metadata_resolved.csv --upper-taxa-lineage-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/metadata_upper_taxa_lineage.csv --wd-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_wd.csv --output-file docs/mapp_project_00050/mapp_batch_00253/metadata/treated/mapp_batch_00253_metadata.tsv --org-column-header source_taxon
+taxonomical-utils merge --input-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_metadata.tsv --resolved-taxa-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_metadata_resolved.csv --upper-taxa-lineage-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/metadata_upper_taxa_lineage.csv --wd-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_wd.csv --output-file docs/mapp_project_00050/mapp_batch_00249/metadata/treated/mapp_batch_00249_metadata.tsv --org-column-header source_taxon
 ```
 
 Alternatively you can run all commands at ounce by running the following command:
 
 ```bash
-taxonomical-utils resolve-taxa --input-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_metadata.tsv --output-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_metadata_resolved.csv --org-column-header source_taxon && \
-taxonomical-utils append-taxonomy --input-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_metadata_resolved.csv --output-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/metadata_upper_taxa_lineage.csv && \
-taxonomical-utils append-wd-id --input-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_metadata_resolved.csv --output-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_wd.csv && \
-taxonomical-utils merge --input-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_metadata.tsv --resolved-taxa-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_metadata_resolved.csv --upper-taxa-lineage-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/metadata_upper_taxa_lineage.csv --wd-file docs/mapp_project_00050/mapp_batch_00253/metadata/original/mapp_batch_00253_wd.csv --output-file docs/mapp_project_00050/mapp_batch_00253/metadata/treated/mapp_batch_00253_metadata.tsv --org-column-header source_taxon
+taxonomical-utils resolve-taxa --input-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_metadata.tsv --output-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_metadata_resolved.csv --org-column-header source_taxon && \
+taxonomical-utils append-taxonomy --input-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_metadata_resolved.csv --output-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/metadata_upper_taxa_lineage.csv && \
+taxonomical-utils append-wd-id --input-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_metadata_resolved.csv --output-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_wd.csv && \
+taxonomical-utils merge --input-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_metadata.tsv --resolved-taxa-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_metadata_resolved.csv --upper-taxa-lineage-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/metadata_upper_taxa_lineage.csv --wd-file docs/mapp_project_00050/mapp_batch_00249/metadata/original/mapp_batch_00249_wd.csv --output-file docs/mapp_project_00050/mapp_batch_00249/metadata/treated/mapp_batch_00249_metadata.tsv --org-column-header source_taxon
 ```
 
 ```bash
@@ -113,7 +113,7 @@ taxonomical-utils merge --input-file docs/mapp_project_00050/mapp_batch_00253/me
 ```bash
 ssh commons-server
 tmux a -t sirius
-cd ~/git_repos/mapp-metabolomics-unit/group-03/docs/mapp_project_00050/mapp_batch_00253/results
+cd ~/git_repos/mapp-metabolomics-unit/group-03/docs/mapp_project_00050/mapp_batch_00249/results
 ```
 
 ### Login
@@ -125,27 +125,27 @@ sirius login --user-env SIRIUS_USERNAME --password-env SIRIUS_PASSWORD
 
 ### Run sirius
 
-(from the results of mapp_batch_00253)
+(from the results of mapp_batch_00249)
 
 #### Positive mode
 
 
 ```bash
-sirius -i ./mzmine/mapp_batch_00253_sirius.mgf --output ./sirius/mapp_batch_00253 --maxmz 2500 config --AlgorithmProfile=orbitrap --MS2MassDeviation.allowedMassDeviation=5.0ppm --SpectralSearchDB=METACYC,BloodExposome,CHEBI,COCONUT,FooDB,GNPS,HMDB,HSDB,KEGG,KNAPSACK,LOTUS,LIPIDMAPS,MACONDA,MESH,MiMeDB,NORMAN,PLANTCYC,PUBCHEMANNOTATIONBIO,PUBCHEMANNOTATIONDRUG,PUBCHEMANNOTATIONFOOD,PUBCHEMANNOTATIONSAFETYANDTOXIC,SUPERNATURAL,TeroMol,YMDB --AdductSettings.fallback=[[M+H]+,[M+Na]+,[M+K]+,[M+H3N+H]+,[M-H2O+H]+] --FormulaSettings.enforced=H,C,N,O,P --IdentitySearchSettings.precursorDeviation=20.0ppm --FormulaSearchSettings.performBottomUpAboveMz=0 --FormulaSearchDB=, --StructureSearchDB=METACYC,BloodExposome,CHEBI,COCONUT,FooDB,GNPS,HMDB,HSDB,KEGG,KNAPSACK,LOTUS,LIPIDMAPS,MACONDA,MESH,MiMeDB,NORMAN,PLANTCYC,PUBCHEMANNOTATIONBIO,PUBCHEMANNOTATIONDRUG,PUBCHEMANNOTATIONFOOD,PUBCHEMANNOTATIONSAFETYANDTOXIC,SUPERNATURAL,TeroMol,YMDB formulas zodiac fingerprints classes structures write-summaries
+sirius -i ./mzmine/mapp_batch_00249_sirius.mgf --output ./sirius/mapp_batch_00249 --maxmz 2500 config --AlgorithmProfile=orbitrap --MS2MassDeviation.allowedMassDeviation=5.0ppm --SpectralSearchDB=METACYC,BloodExposome,CHEBI,COCONUT,FooDB,GNPS,HMDB,HSDB,KEGG,KNAPSACK,LOTUS,LIPIDMAPS,MACONDA,MESH,MiMeDB,NORMAN,PLANTCYC,PUBCHEMANNOTATIONBIO,PUBCHEMANNOTATIONDRUG,PUBCHEMANNOTATIONFOOD,PUBCHEMANNOTATIONSAFETYANDTOXIC,SUPERNATURAL,TeroMol,YMDB --AdductSettings.fallback=[[M+H]+,[M+Na]+,[M+K]+,[M+H3N+H]+,[M-H2O+H]+] --FormulaSettings.enforced=H,C,N,O,P --IdentitySearchSettings.precursorDeviation=20.0ppm --FormulaSearchSettings.performBottomUpAboveMz=0 --FormulaSearchDB=, --StructureSearchDB=METACYC,BloodExposome,CHEBI,COCONUT,FooDB,GNPS,HMDB,HSDB,KEGG,KNAPSACK,LOTUS,LIPIDMAPS,MACONDA,MESH,MiMeDB,NORMAN,PLANTCYC,PUBCHEMANNOTATIONBIO,PUBCHEMANNOTATIONDRUG,PUBCHEMANNOTATIONFOOD,PUBCHEMANNOTATIONSAFETYANDTOXIC,SUPERNATURAL,TeroMol,YMDB,LotusExpanded formulas zodiac fingerprints classes structures write-summaries
 ```
 
 
 #### Negative mode
 
 ```bash
-sirius -i ./mzmine/mapp_batch_00253_sirius.mgf --output ./sirius/mapp_batch_00253 --maxmz 2500 config --AlgorithmProfile=orbitrap --MS2MassDeviation.allowedMassDeviation=5.0ppm --SpectralSearchDB=METACYC,BloodExposome,CHEBI,COCONUT,FooDB,GNPS,HMDB,HSDB,KEGG,KNAPSACK,LOTUS,LIPIDMAPS,MACONDA,MESH,MiMeDB,NORMAN,PLANTCYC,PUBCHEMANNOTATIONBIO,PUBCHEMANNOTATIONDRUG,PUBCHEMANNOTATIONFOOD,PUBCHEMANNOTATIONSAFETYANDTOXIC,SUPERNATURAL,TeroMol,YMDB --AdductSettings.fallback=[[M-H]-,[M+Cl]-,[M+Br]-,[M-H2O-H]-] --FormulaSettings.enforced=H,C,N,O,P --IdentitySearchSettings.precursorDeviation=20.0ppm --FormulaSearchSettings.performBottomUpAboveMz=0 --FormulaSearchDB=, --StructureSearchDB=METACYC,BloodExposome,CHEBI,COCONUT,FooDB,GNPS,HMDB,HSDB,KEGG,KNAPSACK,LOTUS,LIPIDMAPS,MACONDA,MESH,MiMeDB,NORMAN,PLANTCYC,PUBCHEMANNOTATIONBIO,PUBCHEMANNOTATIONDRUG,PUBCHEMANNOTATIONFOOD,PUBCHEMANNOTATIONSAFETYANDTOXIC,SUPERNATURAL,TeroMol,YMDB,LotusExpanded formulas zodiac fingerprints classes structures write-summaries
+sirius -i ./mzmine/mapp_batch_00249_sirius.mgf --output ./sirius/mapp_batch_00249 --maxmz 2500 config --AlgorithmProfile=orbitrap --MS2MassDeviation.allowedMassDeviation=5.0ppm --SpectralSearchDB=METACYC,BloodExposome,CHEBI,COCONUT,FooDB,GNPS,HMDB,HSDB,KEGG,KNAPSACK,LOTUS,LIPIDMAPS,MACONDA,MESH,MiMeDB,NORMAN,PLANTCYC,PUBCHEMANNOTATIONBIO,PUBCHEMANNOTATIONDRUG,PUBCHEMANNOTATIONFOOD,PUBCHEMANNOTATIONSAFETYANDTOXIC,SUPERNATURAL,TeroMol,YMDB --AdductSettings.fallback=[[M-H]-,[M+Cl]-,[M+Br]-,[M-H2O-H]-] --FormulaSettings.enforced=H,C,N,O,P --IdentitySearchSettings.precursorDeviation=20.0ppm --FormulaSearchSettings.performBottomUpAboveMz=0 --FormulaSearchDB=, --StructureSearchDB=METACYC,BloodExposome,CHEBI,COCONUT,FooDB,GNPS,HMDB,HSDB,KEGG,KNAPSACK,LOTUS,LIPIDMAPS,MACONDA,MESH,MiMeDB,NORMAN,PLANTCYC,PUBCHEMANNOTATIONBIO,PUBCHEMANNOTATIONDRUG,PUBCHEMANNOTATIONFOOD,PUBCHEMANNOTATIONSAFETYANDTOXIC,SUPERNATURAL,TeroMol,YMDB,LotusExpanded formulas zodiac fingerprints classes structures write-summaries
 ```
 
 
 ### Move to the sirius results folder
 
 ```bash
-cd ./sirius/mapp_batch_00253
+cd ./sirius/mapp_batch_00249
 ```
 
 
@@ -172,10 +172,10 @@ options:
   output_plots: True
   
 paths:
-  gnps_job_id:  # The GNPS job id you want to treat
-  input_folder: /home/voletco/git_repos/commons-teaching/group-03/docs/mapp_project_00050/mapp_batch_00253/results/met_annot_enhancer # The path were you want your GNPS job folder to be placed
-  project_name: mapp_batch_00253 #ISDB_annot_LP_plantfungi_set # The name you want to give to your project, output resulst in data_out/project_name
-  output_folder: /home/voletco/git_repos/commons-teaching/group-03/docs/mapp_project_00050/mapp_batch_00253/results/met_annot_enhancer # the path for your output to be stored in
+  gnps_job_id: 67fadad5b2a346a3880c7069bf91d2fd # The GNPS job id you want to treat
+  input_folder: /Users/voletco/git_repos/commons-teaching/group-03/docs/mapp_project_00050/mapp_batch_00249/results/met_annot_enhancer # The path were you want your GNPS job folder to be placed
+  project_name: mapp_batch_00249 #ISDB_annot_LP_plantfungi_set # The name you want to give to your project, output resulst in data_out/project_name
+  output_folder: /Users/voletco/git_repos/commons-teaching/group-03/docs/mapp_project_00050/mapp_batch_00249/results/met_annot_enhancer # the path for your output to be stored in
   metadata_path: /Users/pma/01_large_files/lotus/230106_frozen_metadata.csv # Path to the metadata of the spectral file /210715_inhouse_metadata.csv /211220_frozen_metadata.csv You can use multiple ones. Just list them as [a.csv, b.csv, c.csv]
   db_file_path: /Users/pma/01_large_files/mgf/isdb_pos_cleaned.pkl  # Path to your spectral library file. You can use multiple ones. Just list them as [a.mgf, b.mgf, c.mgf]
   adducts_pos_path: data_loc/230106_frozen_metadata/230106_frozen_metadata_adducts_pos.tsv.gz # Path to the adducts file in pos mode
@@ -228,15 +228,15 @@ filtering_params:
 conda activate met_annot_enhancer
 ```
 ```bash
-python /home/voletco/git_repos/commons-teaching/mandelbrot_project/met_annot_enhancer/src/dev/nb.py
+python /Users/voletco/git_repos/commons-teaching/mandelbrot_project/met_annot_enhancer/src/dev/nb.py
 ```
 
 ### Remove symlinks
 This command should remove symlinks from the downloaded GNPS job folder (make sure to run it from the mapp_batch folder)
 
 ```bash
-cd ./docs/mapp_project_00050/mapp_batch_00253
-find ./results/met_annot_enhancer/ -type l -exec rm {} +
+cd ./docs/mapp_project_00050/mapp_batch_00249
+find ./results/met_annot_enhancer/67fadad5b2a346a3880c7069bf91d2fd -type l -exec rm {} +
 ```
 
 
@@ -246,8 +246,8 @@ find ./results/met_annot_enhancer/ -type l -exec rm {} +
 
 ```yaml
 paths:
-  docs: '/home/voletco/git_repos/commons-teaching/group-03/docs'
-  output: '/home/voletco/git_repos/commons-teaching/group-03/docs/mapp_project_00050/mapp_batch_00253/results/stats' # Not mandatory, default is in the stats subdirectory
+  docs: '/Users/voletco/git_repos/commons-teaching/group-03/docs'
+  output: '/Users/voletco/git_repos/commons-teaching/group-03/docs/mapp_project_00050/mapp_batch_00249/results/stats' # Not mandatory, default is in the stats subdirectory
 
 operating_system:
   system: unix # 
@@ -258,13 +258,13 @@ operating_system:
 
 ```yaml
 mapp_project : mapp_project_00050
-mapp_batch : mapp_batch_00253
-met_annot_enhancer_folder : mapp_batch_00253
-gnps_job_id : 
+mapp_batch : mapp_batch_00249
+met_annot_enhancer_folder : mapp_batch_00249
+gnps_job_id : 67fadad5b2a346a3880c7069bf91d2fd
 
 dataset_experiment : 
-  name: "mapp_batch_00253 LCMS metabolomics dataset"
-  description: "Untargeted metabolomics, tp26 SBL. 200004, group-03 - HILIC"
+  name: "mapp_batch_00249 LCMS metabolomics dataset"
+  description: "Untargeted metabolomics, tp26 SBL. 200004, group-03 - C18"
 
 ms_files_extension: ".mzML"
 
@@ -457,7 +457,7 @@ feature_to_filter :
 Launch the scripts
 
 ``````bash
-Rscript /home/voletco/git_repos/commons-teaching/biostat_toolbox/src/biostat_toolbox.r
+Rscript /Users/voletco/git_repos/commons-teaching/biostat_toolbox/src/biostat_toolbox.r
 ```
 
 
@@ -478,18 +478,18 @@ pip install met-annot-unifier -U
 Make sure you are in the correct directory
 
 ```bash
-cd ./docs/mapp_project_00050/mapp_batch_00253/
+cd ./docs/mapp_project_00050/mapp_batch_00249/
 ```
 
 
 #### Align horizontally
 
 ```bash
-met-annot-unifier-cli align-horizontally --canopus-file ./results/sirius/canopus_structure_summary.tsv --gnps-file ./results/met_annot_enhancer//nf_output/library/merged_results_with_gnps.tsv --gnps-mn-file ./results/met_annot_enhancer//nf_output/networking/clustersummary_with_network.tsv --sirius-file ./results/sirius/structure_identifications.tsv --isdb-file ./results/met_annot_enhancer/mapp_batch_00253/mapp_batch_00253_spectral_match_results_repond_flat.tsv --output ./results/tmp/mapp_batch_00253_met_annot_unified_horizontal.tsv
+met-annot-unifier-cli align-horizontally --canopus-file ./results/sirius/canopus_structure_summary.tsv --gnps-file ./results/met_annot_enhancer/67fadad5b2a346a3880c7069bf91d2fd/nf_output/library/merged_results_with_gnps.tsv --gnps-mn-file ./results/met_annot_enhancer/67fadad5b2a346a3880c7069bf91d2fd/nf_output/networking/clustersummary_with_network.tsv --sirius-file ./results/sirius/structure_identifications.tsv --isdb-file ./results/met_annot_enhancer/mapp_batch_00249/mapp_batch_00249_spectral_match_results_repond_flat.tsv --output ./results/tmp/mapp_batch_00249_met_annot_unified_horizontal.tsv
 ```
 
 #### Align vertically
 
 ```bash
-met-annot-unifier-cli align-vertically  --gnps-file ./results/met_annot_enhancer//nf_output/library/merged_results_with_gnps.tsv --isdb-file ./results/met_annot_enhancer/mapp_batch_00253/mapp_batch_00253_spectral_match_results_repond_flat.tsv --sirius-file ./results/sirius/structure_identifications.tsv  --output ./results/tmp/mapp_batch_00253_met_annot_unified_vertical.tsv
+met-annot-unifier-cli align-vertically  --gnps-file ./results/met_annot_enhancer/67fadad5b2a346a3880c7069bf91d2fd/nf_output/library/merged_results_with_gnps.tsv --isdb-file ./results/met_annot_enhancer/mapp_batch_00249/mapp_batch_00249_spectral_match_results_repond_flat.tsv --sirius-file ./results/sirius/structure_identifications.tsv  --output ./results/tmp/mapp_batch_00249_met_annot_unified_vertical.tsv
 ```
