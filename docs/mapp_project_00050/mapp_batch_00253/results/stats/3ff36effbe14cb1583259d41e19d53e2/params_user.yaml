@@ -1,0 +1,7 @@
+paths:
+  docs: '/Users/pma/git_repos/commons-teaching/group-03/docs'
+  output: '/Users/pma/git_repos/commons-teaching/group-03/docs/mapp_project_00050/mapp_batch_00253/results/stats' # Not mandatory, default is in the stats subdirectory
+
+operating_system:
+  system: unix # 
+  pandoc: "C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools" ### only for windows
